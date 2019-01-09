@@ -10,7 +10,6 @@
 
 <p th:unless="${cheeses} and ${cheeses.size()}">no cheese :(</p>
 
-
 <table class="table">
 
     <tr>
@@ -30,8 +29,14 @@
 </table>
 
 <div th:unless="${categoryId}">
-    <a href="/cheese/add">Add</a> |
-    <a href="/cheese/remove">Remove</a>
+    <a href="/cheese/add">Add Cheese</a> |
+    <a href="/cheese/remove">Remove Cheese</a>
 </div>
+<div th:if="${categoryId}">
+    <a th:href="'/category/edit/'+${categoryId}">Edit Category</a>
+</div>
+<br/>
+<br/>
+<br/>
 </body>
 </html>

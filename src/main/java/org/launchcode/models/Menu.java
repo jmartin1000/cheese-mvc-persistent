@@ -6,7 +6,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,6 +18,8 @@ public class Menu {
     @NotNull
     @Size(min = 3, max = 15)
     private String name;
+
+    private String description;
 
     @ManyToMany
     private List<Cheese> cheeses;
@@ -41,7 +42,19 @@ public class Menu {
         return cheeses;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void addItem(Cheese item){
         cheeses.add(item);
+    }
+
+    public void removeItem(Cheese item) {
+        cheeses.remove(item);
     }
 }

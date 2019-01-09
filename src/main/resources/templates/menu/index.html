@@ -17,16 +17,21 @@
         <table class="table">
 
             <tr>
-                <th></th>
+                <th>Name</th>
+                <th>Description</th>
             </tr>
 
             <tr th:each="menu : ${menus}">
                 <td><a th:href="'/menu/view/'+${menu.id}" th:text="${menu.name}"></a></td>
+                <td th:text="${menu.description}"></td>
             </tr>
 
         </table>
 
-        <div><a href="/menu/add">Add Menus</a></div>
+        <div><a href="/menu/add">Add Menu</a> | <a href="/menu/remove-menu">Remove Menu</a></div>
+        <br/>
+        <br/>
+        <br/>
 
     </body>
 </html>

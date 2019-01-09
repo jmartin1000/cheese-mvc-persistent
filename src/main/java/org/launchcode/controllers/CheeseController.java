@@ -63,7 +63,7 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "edit/{cheeseId}", method = RequestMethod.GET)
-    public String editDisplayCheeseForm(Model model, @PathVariable int cheeseId){
+    public String displayCheeseEditForm(Model model, @PathVariable int cheeseId){
         model.addAttribute("title", "Edit "+ cheeseDao.findOne(cheeseId).getName());
         model.addAttribute("cheese", cheeseDao.findOne(cheeseId));
         model.addAttribute("categories", categoryDao.findAll());
@@ -98,8 +98,10 @@ public class CheeseController {
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemoveCheeseForm(@RequestParam int[] cheeseIds) {
 
-        for (int cheeseId : cheeseIds) {
-            cheeseDao.delete(cheeseId);
+        if (cheeseIds != null) {
+            for (int cheeseId : cheeseIds) {
+                cheeseDao.delete(cheeseId);
+            }
         }
 
         return "redirect:";
@@ -114,8 +116,5 @@ public class CheeseController {
         model.addAttribute("categoryId", cat.getId());
         return "cheese/index";
     }
-
-
-
 
 }

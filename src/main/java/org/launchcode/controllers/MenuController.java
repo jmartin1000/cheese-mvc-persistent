@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -92,5 +89,69 @@ public class MenuController {
         menuDao.save(menu);
 
         return "redirect:/menu/view/" + menu.getId();
+    }
+
+    @RequestMapping(value = "remove-item/{menuId}", method = RequestMethod.GET)
+    public String displayRemoveItemForm(Model model, @PathVariable int menuId) {
+        model.addAttribute("menu", menuDao.findOne(menuId));
+        model.addAttribute("cheeses", menuDao.findOne(menuId).getCheeses());
+        model.addAttribute("title", "Remove Cheese from " + menuDao.findOne(menuId).getName());
+        return "menu/remove-item";
+    }
+
+    @RequestMapping(value = "remove-item/{menuId}", method = RequestMethod.POST)
+    public String removeItem(@RequestParam int[] cheeseIds, @PathVariable int menuId) {
+
+        Menu menu = menuDao.findOne(menuId);
+
+        if (cheeseIds.length > 0) {
+            for (int cheeseId : cheeseIds) {
+                Cheese cheese = cheeseDao.findOne(cheeseId);
+                menu.removeItem(cheese);
+            }
+
+            menuDao.save(menu);
+        }
+
+        return "redirect:/menu/view/" + menuId;
+    }
+
+    @RequestMapping(value = "remove-menu", method = RequestMethod.GET)
+    public String displayRemoveMenuForm(Model model) {
+        model.addAttribute("menus", menuDao.findAll());
+        model.addAttribute("title", "Edit Menu List");
+        return "menu/remove-menu";
+    }
+
+    @RequestMapping(value = "remove-menu", method = RequestMethod.POST)
+    public String removeMenu(@RequestParam int[] menuIds) {
+
+        for (int menuId : menuIds) {
+            menuDao.delete(menuId);
+        }
+
+        return "redirect:";
+    }
+
+    @RequestMapping(value = "edit/{menuId}", method = RequestMethod.GET)
+    public String displayMenuEditForm(Model model, @PathVariable int menuId){
+        model.addAttribute("title", menuDao.findOne(menuId).getName());
+        model.addAttribute("menu", menuDao.findOne(menuId));
+        return "menu/edit";
+    }
+
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    public String editMenu(Model model, @RequestParam int menuId, @ModelAttribute @Valid Menu menu, Errors errors){
+
+        if (errors.hasErrors()){
+            model.addAttribute("menuId", menuId);
+            return "menu/edit";
+        }
+
+        Menu currMenu = menuDao.findOne(menuId);
+        currMenu.setName(menu.getName());
+        menuDao.save(currMenu);
+
+        return "redirect:/menu/view/" + menuId;
     }
 }
