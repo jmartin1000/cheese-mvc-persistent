@@ -16,16 +16,20 @@
     <tr>
         <th>Name</th>
         <th>Description</th>
-        <th>Type</th>
+        <th>Category</th>
     </tr>
 
     <tr th:each="cheese : ${cheeses}">
-        <td th:text="${cheese.name}"></td>
+        <td><a th:href="'/cheese/edit/'+${cheese.id}" th:text="${cheese.name}"></a></td>
         <td th:text="${cheese.description}"></td>
         <td th:text="${cheese.category.name}"></td>
     </tr>
 
 </table>
 
+<div th:unless="${categoryId}">
+    <a href="/cheese/add">Add</a> |
+    <a href="/cheese/remove">Remove</a>
+</div>
 </body>
 </html>
