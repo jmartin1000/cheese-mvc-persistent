@@ -21,7 +21,7 @@
     </tr>
 
     <tr th:each="user : ${users}">
-        <td th:text="${user.username}"></td>
+        <td><a th:href="'/user/detail/'+${user.id}" th:text="${user.username}"></a></td>
         <!--
         <td><a th:href="'/user/detail/'+${user.id}" th:text="${user.username}"></a></td>
         <td><p style="display: block;" th:each="cheese : ${user.userCheeses}" th:text="${cheese.name}"></p></td>

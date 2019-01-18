@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -55,6 +56,16 @@ public class UserController {
         userDao.save(newUser);
         return "redirect:";
     }
+
+    @RequestMapping(value="detail/{userId}", method = RequestMethod.GET)
+    public String viewUserDetails(Model model, @PathVariable int userId){
+        model.addAttribute("title", "User Details");
+        model.addAttribute("user", userDao.findOne(userId));
+
+        return "user/detail";
+    }
+
+
     //TODO login/logged in feature
     //TODO add user detail view. maybe add a bio section?
     //TODO allow user to change username and password, from user detail view

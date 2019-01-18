@@ -19,11 +19,13 @@
             <tr>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Creator</th>
             </tr>
 
             <tr th:each="menu : ${menus}">
                 <td><a th:href="'/menu/view/'+${menu.id}" th:text="${menu.name}"></a></td>
                 <td th:text="${menu.description}"></td>
+                <td><a th:href="'/user/detail/'+${menu.user.id}" th:text="${menu.user.username}"></a></td>
             </tr>
 
         </table>

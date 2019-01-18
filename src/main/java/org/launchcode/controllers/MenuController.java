@@ -55,7 +55,7 @@ public class MenuController {
 
     @RequestMapping(value = "view/{menuId}", method = RequestMethod.GET)
     public String viewMenu(Model model, @PathVariable int menuId){
-        model.addAttribute("title", menuDao.findOne(menuId).getName());
+        model.addAttribute("title", menuDao.findOne(menuId).getName() + ": by "+ menuDao.findOne(menuId).getUser().getUsername());
         model.addAttribute("menu", menuDao.findOne(menuId));
         return "menu/view";
     }
