@@ -154,4 +154,8 @@ public class MenuController {
 
         return "redirect:/menu/view/" + menuId;
     }
+
+    //TODO add userid to the add menu handlers
+    //TODO add userid checks to the edit and remove handlers
+    // TODO add user name to the views, link to user detail
 }

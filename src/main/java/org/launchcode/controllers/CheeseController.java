@@ -117,4 +117,8 @@ public class CheeseController {
         return "cheese/index";
     }
 
+    //TODO add userid to the add cheese handlers
+    //TODO add userid checks to the edit and remove handlers and views (hide edit and remove options owner not logged in)
+    // TODO add user name to the views, link to user detail
+
 }

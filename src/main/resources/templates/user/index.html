@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${users} and ${users.size()}">no users :(</p>
+
+<table class="table">
+
+    <tr>
+        <th>Name</th>
+        <!--
+        <th>Cheeses</th>
+        <th>Menus</th>
+        -->
+    </tr>
+
+    <tr th:each="user : ${users}">
+        <td th:text="${user.username}"></td>
+        <!--
+        <td><a th:href="'/user/detail/'+${user.id}" th:text="${user.username}"></a></td>
+        <td><p style="display: block;" th:each="cheese : ${user.userCheeses}" th:text="${cheese.name}"></p></td>
+        <td><a style="display: block;" th:each="menu : ${user.userMenus}" th:href="'/menu/view/'+${menu.id}" th:text="${menu.name}"></a></td>
+        -->
+    </tr>
+
+</table>
+
+<div>
+    <a href="/user/add">Sign Up</a>
+</div>
+<br/>
+<br/>
+<br/>
+</body>
+</html>
