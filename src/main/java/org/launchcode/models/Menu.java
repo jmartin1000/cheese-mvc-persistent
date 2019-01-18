@@ -1,9 +1,6 @@
 package org.launchcode.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -20,6 +17,9 @@ public class Menu {
     private String name;
 
     private String description;
+
+    @ManyToOne
+    private User user;
 
     @ManyToMany
     private List<Cheese> cheeses;
@@ -48,6 +48,14 @@ public class Menu {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void addItem(Cheese item){
